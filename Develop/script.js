@@ -7,52 +7,60 @@ function getOptions(){
 // that will store the user inputted response in a variable and return it...?
 };
 
-// CONTROL DATA TYPE AND LENGTH OF PASSWORD:
+// FUNCTION TO CONTAIN OTHER USER QUESTION FUNCTIONS
+function controlData(){
+  var passwordLength = window.prompt("How many characters would you like your password to be?");
+  console.log(passwordLength, isNaN(passwordLength), typeof(passwordLength)); // It's defined here
+  
+  // MAKE SURE IT'S A NUMBER
+  function controlType(){
+    console.log("MAKE SURE IT'S A NUMBER FUNCTION");
+    console.log(passwordLength, isNaN(passwordLength), typeof(passwordLength));  // Not defined here.
+    
+    // If passwordLength is NOT Not-a-Number (ie. if it IS a number)...
+    if(!isNaN(passwordLength)){
+      console.log("Is a number");
+      passwordLength = Math.round(parseInt(passwordLength)); //Do I need to return passwordLength for its new value to be accessed outside of this function?
+      controlLength();
+    }else{
+      // Why is the recurse being skipped?
+      window.alert("Please enter a numeric value.");
+      var passwordLength = window.prompt("How many characters would you like your password to be?");
+      console.log("Not a number");
+      controlType();
+    }  
+  };
+  
+  controlType();
+  
+  // MAKE SURE IT'S NOT TOO LONG
+  function controlLength(){
+    console.log("MAKE SURE IT'S NOT TOO LONG FUNCTION");
 
-var passwordLength = window.prompt("How many characters would you like your password to be?");
-console.log(passwordLength); // It's defined here
-// Parse type function
-function controlType(passwordLength){
-  console.log("YOU'RE IN THE PASSWORD TYPE FUNCTION");
+    if(passwordLength < 5){
+      window.alert("Password must be longer than 5 characters.");
+      controlType();
+    }
+    else if(passwordLength > 15){
+      window.alert("Password must be shorter than 15 characters.");
+      controlType();
+    }
+    else{
+      console.log("Go to lettersConfirm()");
+    }
+  };
+  
 
-  console.log(passwordLength, isNaN(passwordLength), typeof(passwordLength));  // Not defined here.
-  // If passwordLength is NOT Not-a-Number(ie. if it IS a number)...
-  if(!isNaN(passwordLength)){
-    console.log("Is a number");
-    passwordLength = Math.round(parseInt(passwordLength)); //Do I need to return passwordLength for its new value to be accessed outside of this function?
-    // controlLength();
-  }else{
-    // Why is the recurse being skipped?
-    window.alert("Please enter a numeric value.");
-    var passwordLength = window.prompt("How many characters would you like your password to be?");
-    console.log("Not a number");
-    controlType
-  }  
+  // ASK USET TO CONFIRM OTHER PREFERENCES
+  var isUpper = window.confirm("Would you like to have lowercase letters in your password?");
+  var isLower = window.confirm("Would you like to have lowercase letters?");
+
 }
 
-controlType();
-
-// Length function
-function controlLength(passwordLength){
-    console.log("YOU'RE IN THE PASSWORD LENGTH FUNCTION");
-  if(passwordLength < 5){
-    window.alert("Password must be longer than 5 characters.");
-    controlType();
-  }
-  else if(passwordLength > 15){
-    window.alert("Password must be shorter than 15 characters.");
-  }
-  else{
-    console.log("Go to lettersConfirm()");
-  }
-};
+controlData();
 
 
-// controlLength();
 
-function lettersConfirm(isLetters, isUpLetters, isLow){
-  if(isLetters){}
-}
 
 // GENERATE CHARACTERS
 // Would you like characters at all?
