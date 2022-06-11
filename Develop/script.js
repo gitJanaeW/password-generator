@@ -75,21 +75,25 @@ function generatePassword(){
 
   checkIsPreference();
 
+  var wantedPreferences = [];
+
   // GATHER WANTED PREFERENCES
   function getPreferences(){
     console.log("GATHER WANTED PREFERENCES");
-    var wantedPreferences = [];// OFFICE HOURS: When this var is global, .push on line __ throws an error. When it's local, it's undefined. Didn't have this issue until stringPreferences() was made
+    // OFFICE HOURS: When this var is global, .push on line __ throws an error. When it's local, it's undefined. Didn't have this issue until stringPreferences() was made
     var x = 0;
 
     for(var i = 0; i < allPreferences.length; i++){
       if(allPreferences[i].boolValue){
-        wantedPreferences.push(allPreferences[i]);
-        console.log("wantedPreference :", wantedPreferences[x].type, wantedPreferences[x].boolValue);
+        console.log(i);
+        console.log("wantedPreference: " + allPreferences[i].type + " " + allPreferences[i].boolValue.toString());
+        wantedPreferences.push({type:allPreferences[i].type, boolValue:allPreferences[i].boolValue});
         x++;
       }
     }
     stringPreferences();
   }
+
   
   // STRING TOGETHER PREFERENCES
   function stringPreferences(){
