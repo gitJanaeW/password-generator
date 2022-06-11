@@ -1,12 +1,8 @@
-// VARIABLES
+// VARIABLES (gather/organize later)
 var password = document.getElementById("password");
 
-// Make a password object is true false isChars, etc. Do a for loop to access
-// each object child's true/false value and then (maybe?) a switch statement to
-// print the resulting password with user preferences
-
-// FUNCTION TO CONTAIN OTHER USER QUESTION FUNCTIONS
-function controlData(){
+// FUNCTION TO CONTAIN ALL OTHER FUNCTIONS
+function generatePassword(){
   
   var passwordLength = "";
 
@@ -18,7 +14,7 @@ function controlData(){
 
   askLength();
 
-  // MAKE SURE IT'S A NUMBER & NOT TOO LONG/SHORT
+  // MAKE SURE passwordLength IS A NUMBER
   function controlType(){
     console.log("MAKE SURE IT'S A NUMBER FUNCTION");    
     // If passwordLength is NOT Not-a-Number (ie. if it IS a number)...
@@ -36,62 +32,83 @@ function controlData(){
     }  
   };
   
-  // MAKE SURE IT'S NOT TOO LONG
+  // MAKE SURE passwordLength IS NOT TOO SHORT/LONG
   function controlLength(){
     console.log("MAKE SURE IT'S NOT TOO SHORT/LONG FUNCTION");
-    if(passwordLength < 5){
-      window.alert("Password must be longer than 5 characters.");
-      askLength();
-    }
-    else if(passwordLength > 15){
-      window.alert("Password must be shorter than 15 characters.");
+    if(passwordLength < 5 || passwordLength > 15 || !passwordLength){
+      window.alert("Your password length must be between 5-15 characters.");
       askLength();
     }
     else{
-      console.log("Go to lettersConfirm()");
-      // break; Why won't this break work?
+      console.log("Within preference ranges.");
     }
   };
+
   
-
-  // ASK USER TO CONFIRM OTHER PREFERENCES
+  // OFFICE HOURS : This section should be a function but the console yells at me when I make it a function. Why?
   console.log("STORE USER PREFERENCES");
-  var isUpper = window.confirm("Would you like to have lowercase letters in your password?");
-  var isLower = window.confirm("Would you like to have uppercase letters?");
-  var isNums = window.confirm("Would you like to have numbers?");
-  var isSpecial = window.confirm("Would you like to have special characters?");
+  var allPreferences = [
+    {type: "isUpper", boolValue: false},
+    {type: "isLower", boolValue: false},
+    {type: "isNum", boolValue: false},
+    {type: "isSpecial", boolValue: false}
+  ];
 
-  // CHECK WHICH PREFERENCES ARE WANTED
-  // This should check allPreferences for true values only and store those true
-  // values in a separate array
-  function getPreferredChars(){
-    console.log("CHECK WHICH PREFERENCES ARE WANTED");
+  allPreferences[0].boolValue = window.confirm("Would you like to have uppercase letters in your password?");
+  allPreferences[1].boolValue = window.confirm("Would you like to have lowercase letters?");
+  allPreferences[2].boolValue = window.confirm("Would you like to have numbers?");
+  allPreferences[3].boolValue = window.confirm("Would you like to have special characters?");
 
-    var allPreferences = [isUpper, isLower, isNums, isSpecial];
-    var wantedPreferences = [];
+  console.log("After prompts: ", allPreferences[0].boolValue, allPreferences[1].boolValue, allPreferences[2].boolValue, allPreferences[3].boolValue);
 
-    // OFFICE HOURS: How do I know if this is looping correctly or not? Having trouble reading the log
-    for(i = 0; i <= allPreferences.length; i++){
-      if(allPreferences[i]){
-        var x = 0;
-        wantedPreferences[x] = wantedPreferences.push(allPreferences[i]);
+  // MAKE SURE THERE *ARE* PREFERENCES
+  function checkIsPreference(){
+    console.log("CHECK THAT THERE ARE PREFERENCES");
+    if(!allPreferences[0].boolValue && !allPreferences[1].boolValue && !allPreferences[2].boolValue && !allPreferences[3].boolValue){
+      window.alert("You must select at least 1 character type.");
+      askPreference();
+    }else{
+      console.log("There are preferences.");
+      getPreferences();
+    }
+  }
+
+  checkIsPreference();
+
+  // GATHER WANTED PREFERENCES
+  function getPreferences(){
+    console.log("GATHER WANTED PREFERENCES");
+    var wantedPreferences = [];// OFFICE HOURS: When this var is global, .push on line __ throws an error. When it's local, it's undefined. Didn't have this issue until stringPreferences() was made
+    var x = 0;
+
+    for(var i = 0; i < allPreferences.length; i++){
+      if(allPreferences[i].boolValue){
+        wantedPreferences.push(allPreferences[i]);
+        console.log("wantedPreference :", wantedPreferences[x].type, wantedPreferences[x].boolValue);
         x++;
-        // console.log(allPreferences[i], wantedPreferences[x]);
-        console.log(wantedPreferences[x]);
       }
     }
+    stringPreferences();
+  }
+  
+  // STRING TOGETHER PREFERENCES
+  function stringPreferences(){
+    console.log("CREATE A STRING OF PREFERENCES");
+    var finalPreferences = "";
 
-    return wantedPreferences;
-    
-  };
-
-  getPreferredChars();
-
+    for(var i = 0; i < wantedPreferences.length; i++){
+      finalPreferences = finalPreferences + toString(wantedPreferences[x].type);
+      console.log(finalPreferences);
+    }
+  }
 }
 
-controlData();
+// START ALGORITHM:
+generatePassword();
 
-// GENERATE CHARACTERS
+
+
+
 
 
 
@@ -107,7 +124,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = generatePassword(); // Might need to change this to make it more specific
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
