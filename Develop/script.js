@@ -1,5 +1,9 @@
 // VARIABLES
 var password = document.getElementById("password");
+var upper = document.getElementById("upper");
+var lower = document.getElementById("lower");
+var special = document.getElementById("special");
+document.getElementById("length");
 
 var numbers = "1234567890";
 var lowLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -17,20 +21,20 @@ var allPreferences = [
 
 function generatePassword(){
   function getLength(){
-    passwordLength = window.prompt("How many characters would you like your password to be?");
+    passwordLength = length;
 
     // MAKE SURE LENGTH IS A NUMBER
     console.log("MAKE SURE IT'S A NUMBER FUNCTION");    
     // If passwordLength is NOT Not-a-Number (ie. if it IS a number)...
     if(!isNaN(passwordLength)){
-    console.log("Is a number");
-    passwordLength = Math.round(parseInt(passwordLength)); //Do I need to return passwordLength for its new value to be accessed outside of this function?
-    console.log(passwordLength, isNaN(passwordLength), typeof(passwordLength));
-    // askLength();
+      console.log("Is a number");
+      passwordLength = Math.round(parseInt(passwordLength)); //Do I need to return passwordLength for its new value to be accessed outside of this function?
+      console.log(passwordLength, isNaN(passwordLength), typeof(passwordLength));
+      // askLength();
     }else{
-    window.alert("Please enter a numeric value.");
-    console.log("Not a number");
-    getLength();
+      window.alert("Please enter a numeric value.");
+      console.log("Not a number");
+      getLength(); // Need to replace with "break" so user can input a different value, but "break" isn't working
     }
 
     // MAKE SURE THE LENGTH IS NOT TOO LONG/SHORT
@@ -47,10 +51,10 @@ function generatePassword(){
 
 
   function getCharPreference(){
-    allPreferences[0].boolValue = window.confirm("Would you like to have uppercase letters in your password?");
-    allPreferences[1].boolValue = window.confirm("Would you like to have lowercase letters?");
-    allPreferences[2].boolValue = window.confirm("Would you like to have numbers?");
-    allPreferences[3].boolValue = window.confirm("Would you like to have special characters?");
+    allPreferences[0].boolValue = upper;
+    allPreferences[1].boolValue = lower;
+    allPreferences[2].boolValue = nums;
+    allPreferences[3].boolValue = special;
     console.log("After prompts: ", allPreferences[0].boolValue, allPreferences[1].boolValue, allPreferences[2].boolValue, allPreferences[3].boolValue);
 
     // CHECK THAT THERE ARE PREFERENCES
@@ -120,27 +124,22 @@ function generatePassword(){
   }
 
   getLength();
-  getCharPreference();
   printPassword();
 }
 
-// START ALGORITHM
-generatePassword();
+// ALGORITHM STARTS WITH GENERATEBTN ONCLICK
 
 
 
 
-// // Get references to the #generate element
+// Get references to the #generate element
 // var generateBtn = document.querySelector("#generate");
 
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword(); // Might need to change this to make it more specific
-//   var passwordText = document.querySelector("#password");
+// Write password to the #password input
 
-//   passwordText.value = password;
+  
+// var passwordText = document.querySelector("#password"); // COME BACK TO QUERY SELECTOR
+// passwordText.value = password;
 
-// }
 
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+

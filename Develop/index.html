@@ -25,7 +25,22 @@
           ></textarea>
         </div>
         <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
+          <div>
+            <p>How many characters would you like your password to be?:</p>
+            <input type="text" id="length">
+            <p>Select at least one character type:</p>
+            <input type="radio" id="upper">
+            <label for="upper">Uppercase Letters</label><br>
+            <input type="radio" id="lower">
+            <label for="lower">Lowercase Letters</label><br>
+            <input type="radio" id="nums">
+            <label for="nums">Numbers</label><br>
+            <input type="radio" id="special">
+            <label for="special">Special Characters</label><br>
+          </div>
+          
+          
+          <button id="generate" class="btn" onclick="generatePassword()">Generate Password</button>
         </div>
       </div>
     </div>
