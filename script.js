@@ -25,7 +25,8 @@ var allPreferences = [
 
 function generatePassword(){
   function getLength(){
-    // RESET ERROR MESSAGES
+    
+    // RESET VALUES
     passwordLengthRangeError.textContent = "";
     passwordLengthNaN.textContent = "";
     preferenceError.textContent = "";
@@ -55,16 +56,17 @@ function generatePassword(){
 
   function getCharPreference(){
     // STORE BOOL VALUE OF RADIO BUTTONS
-    for(var i = 0; i < allPreferences.length; i++){
-      allPreferences[i] = allPreferences[i].checked;
-    } 
-
-    // allPreferences[0] = upper.checked;
-    // allPreferences[1] = lower.checked;
-    // allPreferences[2] = nums.checked;
-    // allPreferences[3] = special.checked;
+    allPreferences[0] = upper.checked;
+    allPreferences[1] = lower.checked;
+    allPreferences[2] = nums.checked;
+    allPreferences[3] = special.checked;
     
-    console.log(upper.checked, lower.checked, nums.checked, special.checked);
+    // NOTE: Leaving this here in case I'm able to get it to work some other time
+    
+    // for(var i = 0; i < allPreferences.length; i++){
+    //   allPreferences[i] = allPreferences[i].checked;
+    // }
+    // console.log(upper.checked, lower.checked, nums.checked, special.checked);
 
     // CHECK THAT THERE ARE PREFERENCES
     if(!allPreferences[0] && !allPreferences[1] && !allPreferences[2] && !allPreferences[3]){
