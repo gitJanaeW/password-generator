@@ -48,7 +48,7 @@ function generatePassword(){
 
     // MAKE SURE THE LENGTH IS NOT TOO LONG/SHORT
     console.log("MAKE SURE IT'S NOT TOO SHORT/LONG FUNCTION");
-    if(passwordLength < 5 || passwordLength > 15 || !passwordLength){
+    if(passwordLength < 8 || passwordLength > 128 || !passwordLength){
       passwordLengthRangeError.textContent = "Your password length must be between 5-15 characters.";
       return;
     }
