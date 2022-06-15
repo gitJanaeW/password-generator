@@ -1,11 +1,13 @@
 // VARIABLES
 var password = document.getElementById("password");
 var lengthInput = document.getElementById("length-input");
-var upper = document.getElementById("upper").checked;
-var lower = document.getElementById("lower").checked;
-var nums = document.getElementById("nums").checked;
-var special = document.getElementById("special").checked;
-
+var upper = document.getElementById("upper");
+var lower = document.getElementById("lower");
+var nums = document.getElementById("nums");
+var special = document.getElementById("special");
+var passwordLengthRangeError = document.getElementById("password-length-range-error");
+var passwordLengthNaN = document.getElementById("password-length-NaN");
+var preferenceError = document.getElementById("preference-error");
 
 var numbers = "1234567890";
 var lowLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -13,6 +15,7 @@ var upLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var specialChars = "!@#$%^&*+-_'~.:;="
 
 var passwordLength = "";
+var printOptions = "";
 
 var allPreferences = [
   {type: "isUpper", boolValue: false},
@@ -23,45 +26,50 @@ var allPreferences = [
 
 function generatePassword(){
   function getLength(){
-    passwordLength = lengthInput;
+    // reset error messages
+    passwordLengthRangeError.textContent = "";
+    passwordLengthNaN.textContent = "";
+    preferenceError.textContent = "";
+
+    passwordLength = lengthInput.value;
 
     // MAKE SURE LENGTH IS A NUMBER
     console.log("MAKE SURE IT'S A NUMBER FUNCTION");    
     // If passwordLength is NOT Not-a-Number (ie. if it IS a number)...
     if(!isNaN(passwordLength)){
-    console.log("Is a number");
-    passwordLength = Math.round(parseInt(passwordLength)); //Do I need to return passwordLength for its new value to be accessed outside of this function?
-    console.log(passwordLength);
+      console.log("Is a number");
+      passwordLength = Math.round(parseInt(passwordLength));
+      console.log(passwordLength);
     }else{
-    window.alert("Please enter a numeric value.");
-    console.log("Not a number");
-    return;
+      passwordLengthNaN.textContent = "Please enter a numeric value.";
+      console.log("Not a number");
+      return;
     }
 
     // MAKE SURE THE LENGTH IS NOT TOO LONG/SHORT
     console.log("MAKE SURE IT'S NOT TOO SHORT/LONG FUNCTION");
     if(passwordLength < 5 || passwordLength > 15 || !passwordLength){
-    window.alert("Your password length must be between 5-15 characters.");
-    return;
+      passwordLengthRangeError.textContent = "Your password length must be between 5-15 characters.";
+      return;
     }
     else{
-    console.log("Within preference ranges.");
+      console.log("Within preference ranges.");
     }
     return passwordLength;
   }
 
 
   function getCharPreference(){
-    allPreferences[0].boolValue = upper;
-    allPreferences[1].boolValue = lower;
-    allPreferences[2].boolValue = nums
-    allPreferences[3].boolValue = special
+    allPreferences[0].boolValue = upper.checked;
+    allPreferences[1].boolValue = lower.checked;
+    allPreferences[2].boolValue = nums.checked;
+    allPreferences[3].boolValue = special.checked;
     console.log("After prompts: ", allPreferences[0].boolValue, allPreferences[1].boolValue, allPreferences[2].boolValue, allPreferences[3].boolValue);
 
     // CHECK THAT THERE ARE PREFERENCES
     console.log("CHECK THAT THERE ARE PREFERENCES");
     if(!allPreferences[0].boolValue && !allPreferences[1].boolValue && !allPreferences[2].boolValue && !allPreferences[3].boolValue){
-      window.alert("You must select at least 1 character type.");
+      preferenceError.textContent = "You must select at least 1 character type.";
       return;
     }
     console.log("There are preferences.");
@@ -70,9 +78,10 @@ function generatePassword(){
     // Is this necessary?
     console.log("GATHER WANTED PREFERENCES");
     var wantedPreferences = [];
-    var x = 0;
+
 
     for(var i = 0; i < allPreferences.length; i++){
+      var x = 0;
       if(allPreferences[i].boolValue){
         console.log("wantedPreference: ", allPreferences[i].type, allPreferences[i].boolValue.toString());
         wantedPreferences.push({type:allPreferences[i].type, boolValue:allPreferences[i].boolValue});
@@ -85,7 +94,7 @@ function generatePassword(){
     var finalPreferences = "";
 
     for(var i = 0; i < wantedPreferences.length; i++){
-    finalPreferences += wantedPreferences[i].type.toString();
+      finalPreferences += wantedPreferences[i].type.toString();
     }   
     console.log(finalPreferences);
 
@@ -116,17 +125,21 @@ function generatePassword(){
 
   function printPassword(){
     console.log("RANDOMIZE WANTED PREFERENCES INTO PASSWORD");
-    var printOptions = getCharPreference();
+    printOptions = getCharPreference();
     
     for(var i = 0; i < passwordLength; i++){
         password.innerHTML += printOptions.charAt(Math.floor(Math.random() * printOptions.length));
     }
     console.log("password: ", password.innerHTML);
+
+
   }
 
   getLength();
   printPassword();
+
 }
+
 
 // START ALGORITHM
 // generatePassword();

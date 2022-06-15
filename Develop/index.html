@@ -28,6 +28,10 @@
           <div>
             <p>How many characters would you like your password to be?:</p>
             <input type="text" id="length-input">
+
+            <p class="error-text" id="password-length-range-error"></p>
+            <p class="error-text" id="password-length-NaN"></p>
+
             <p>Select at least one character type:</p>
             <input type="radio" id="upper" value="upper">
             <label for="upper">Uppercase Letters</label><br>
@@ -37,13 +41,14 @@
             <label for="nums">Numbers</label><br>
             <input type="radio" id="special">
             <label for="special">Special Characters</label><br>
+
+            <p class="error-text" id="preference-error"></p>
           </div>
-          
-          
+           
           <button id="generate" class="btn" onclick="generatePassword()">Generate Password</button>
         </div>
       </div>
     </div>
-    <script src="script2.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
