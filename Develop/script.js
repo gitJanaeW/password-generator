@@ -3,7 +3,7 @@ var password = document.getElementById("password");
 var upper = document.getElementById("upper");
 var lower = document.getElementById("lower");
 var special = document.getElementById("special");
-document.getElementById("length");
+var length = document.getElementById("length").value; // Adding value will access not just the id, but rather the numeric value in the id
 
 var numbers = "1234567890";
 var lowLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -22,26 +22,26 @@ var allPreferences = [
 function generatePassword(){
   function getLength(){
     passwordLength = length;
-
+    console.log("passwordLength", passwordLength)
     // MAKE SURE LENGTH IS A NUMBER
     console.log("MAKE SURE IT'S A NUMBER FUNCTION");    
     // If passwordLength is NOT Not-a-Number (ie. if it IS a number)...
     if(!isNaN(passwordLength)){
       console.log("Is a number");
-      passwordLength = Math.round(parseInt(passwordLength)); //Do I need to return passwordLength for its new value to be accessed outside of this function?
+      passwordLength = Math.round(parseInt(passwordLength)); // Do I need to return passwordLength for its new value to be accessed outside of this function?
       console.log(passwordLength, isNaN(passwordLength), typeof(passwordLength));
       // askLength();
     }else{
       window.alert("Please enter a numeric value.");
       console.log("Not a number");
-      getLength(); // Need to replace with "break" so user can input a different value, but "break" isn't working
+      return;
     }
 
     // MAKE SURE THE LENGTH IS NOT TOO LONG/SHORT
     console.log("MAKE SURE IT'S NOT TOO SHORT/LONG FUNCTION");
     if(passwordLength < 5 || passwordLength > 15 || !passwordLength){
     window.alert("Your password length must be between 5-15 characters.");
-    getLength();
+    return;
     }
     else{
     console.log("Within preference ranges.");
